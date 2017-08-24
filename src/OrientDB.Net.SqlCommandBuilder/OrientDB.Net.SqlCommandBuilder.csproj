@@ -20,7 +20,6 @@
     <PackageReference Include="System.Collections.Concurrent" Version="4.0.12" />
     <PackageReference Include="System.Linq" Version="4.1.0" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />
-    <PackageReference Include="OrientDB.Net.Core" Version="0.1.9" />
     <PackageReference Include="System.Linq.Queryable" Version="4.0.1" />
   </ItemGroup>
 
