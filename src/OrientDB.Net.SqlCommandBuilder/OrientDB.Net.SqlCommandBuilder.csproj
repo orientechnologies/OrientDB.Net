@@ -4,7 +4,7 @@
     <Description>OrientDB SQL Command Builder</Description>
     <AssemblyTitle>OrientDB.Net.SqlCommandBuilder</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
-    <TargetFrameworks>netstandard16</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>OrientDB.Net.SqlCommandBuilder</AssemblyName>
     <PackageId>OrientDB.Net.SqlCommandBuilder</PackageId>    
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -19,7 +19,7 @@
   <ItemGroup>
     <PackageReference Include="System.Collections.Concurrent" Version="4.0.12" />
     <PackageReference Include="System.Linq" Version="4.1.0" />
-    <PackageReference Include="System.Reflection" Version="4.1.0" />
+    <PackageReference Include="System.Reflection" Version="4.3.0" />
     <PackageReference Include="OrientDB.Net.Core" Version="0.1.9" />
     <PackageReference Include="System.Linq.Queryable" Version="4.0.1" />
   </ItemGroup>

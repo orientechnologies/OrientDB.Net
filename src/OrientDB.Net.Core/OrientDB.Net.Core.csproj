@@ -7,7 +7,7 @@
     <Authors>Michael Davidson</Authors>
     <AssemblyName>OrientDB.Net.Core</AssemblyName>
     <PackageId>OrientDB.Net.Core</PackageId>
-    <TargetFramework>netstandard16</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <PackageTags>orientdb;database;orient;.net;c#;document;graph</PackageTags>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
