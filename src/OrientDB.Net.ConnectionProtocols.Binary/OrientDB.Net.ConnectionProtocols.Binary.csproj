@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyTitle>OrientDB.Net.ConnectionProtocols.Binary</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
-    <TargetFrameworks>netstandard16</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>OrientDB.Net.ConnectionProtocols.Binary</AssemblyName>
     <PackageId>OrientDB.Net.ConnectionProtocols.Binary</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -13,19 +13,19 @@
     <AssemblyVersion>0.1.13.0</AssemblyVersion>
     <FileVersion>0.1.13.0</FileVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/orientechnologies/OrientDB.Net</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/orientechnologies/OrientDB.Net</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard20|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0</DefineConstants>
+    <OutputPath>bin\Debug\netstandard20\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net451' ">
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.0' ">
-    <PackageReference Include="System.Linq" Version="4.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
