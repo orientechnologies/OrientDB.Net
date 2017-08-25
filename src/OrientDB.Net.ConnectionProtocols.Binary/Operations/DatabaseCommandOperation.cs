@@ -8,6 +8,7 @@ using System.IO;
 using OrientDB.Net.Core.Abstractions;
 using OrientDB.Net.Core.Models;
 using OrientDB.Net.ConnectionProtocols.Binary.Operations.Results;
+using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Operations
 {
@@ -18,9 +19,9 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Operations
         private readonly ICommandPayloadConstructorFactory _payloadFactory;
         private readonly ConnectionMetaData _metaData;
         private readonly IOrientDBRecordSerializer<byte[]> _serializer;
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
 
-        public DatabaseCommandOperation(ICommandPayloadConstructorFactory payloadFactory, ConnectionMetaData metaData, IOrientDBRecordSerializer<byte[]> serializer, IOrientDBLogger logger, string query, string fetchPlan = "*:0")
+        public DatabaseCommandOperation(ICommandPayloadConstructorFactory payloadFactory, ConnectionMetaData metaData, IOrientDBRecordSerializer<byte[]> serializer, ILogger logger, string query, string fetchPlan = "*:0")
         {
             _fetchPlan = fetchPlan;
             _payloadFactory = payloadFactory ?? throw new ArgumentNullException($"{nameof(payloadFactory)} cannot be null.");

@@ -4,6 +4,7 @@ using System.IO;
 using OrientDB.Net.Core.Abstractions;
 using System;
 using OrientDB.Net.Core.Models;
+using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Operations
 {
@@ -15,9 +16,9 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Operations
         private readonly ConnectionMetaData _metaData;
         private readonly IOrientDBRecordSerializer<byte[]> _serializer;
         private readonly ServerConnectionOptions _options;
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
 
-        public DatabaseCreateOperation(string databaseName, DatabaseType databaseType, StorageType storageType, ConnectionMetaData metaData, ServerConnectionOptions options, IOrientDBRecordSerializer<byte[]> serializer, IOrientDBLogger logger)
+        public DatabaseCreateOperation(string databaseName, DatabaseType databaseType, StorageType storageType, ConnectionMetaData metaData, ServerConnectionOptions options, IOrientDBRecordSerializer<byte[]> serializer, ILogger logger)
         {
             if (string.IsNullOrWhiteSpace(databaseName))
                 throw new ArgumentException($"{nameof(databaseName)} cannot be zero length or null.");

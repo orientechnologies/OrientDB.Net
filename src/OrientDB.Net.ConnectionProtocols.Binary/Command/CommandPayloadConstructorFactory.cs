@@ -1,4 +1,5 @@
-﻿using OrientDB.Net.ConnectionProtocols.Binary.Core;
+﻿using Microsoft.Extensions.Logging;
+using OrientDB.Net.ConnectionProtocols.Binary.Core;
 using OrientDB.Net.Core.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -7,10 +8,10 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Command
 {
     internal class CommandPayloadConstructorFactory : ICommandPayloadConstructorFactory
     {
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
         private readonly IOrientDBRecordSerializer<byte[]> _serializer;
 
-        public CommandPayloadConstructorFactory(IOrientDBRecordSerializer<byte[]> serializer, IOrientDBLogger logger)
+        public CommandPayloadConstructorFactory(IOrientDBRecordSerializer<byte[]> serializer, ILogger logger)
         {
             _serializer = serializer ?? throw new ArgumentNullException($"{nameof(serializer)} cannot be null");
             _logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannt be null.");

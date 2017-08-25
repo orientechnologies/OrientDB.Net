@@ -1,4 +1,5 @@
-﻿using OrientDB.Net.ConnectionProtocols.Binary.Core;
+﻿using Microsoft.Extensions.Logging;
+using OrientDB.Net.ConnectionProtocols.Binary.Core;
 using OrientDB.Net.Core.Abstractions;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary
@@ -7,7 +8,7 @@ namespace OrientDB.Net.ConnectionProtocols.Binary
     {
         private readonly ServerConnectionOptions _options;
         private static OrientDBBinaryServerConnection _serverConnection;
-        private IOrientDBLogger _logger;
+        private ILogger _logger;
 
         public BinaryProtocol(string hostName, string userName, string password, int port = 2424) : this(new ServerConnectionOptions
         {
@@ -23,19 +24,19 @@ namespace OrientDB.Net.ConnectionProtocols.Binary
             _options = options;
         }
 
-        public IOrientServerConnection CreateServerConnection(IOrientDBRecordSerializer<byte[]> serializer, IOrientDBLogger logger)
+        public IOrientServerConnection CreateServerConnection(IOrientDBRecordSerializer<byte[]> serializer, ILogger logger)
         {
             _logger = logger;
             if (_serverConnection == null)
                 _serverConnection = new OrientDBBinaryServerConnection(_options, serializer, _logger);
-            _logger.Information("OrientDB.Net.ConnectionProtocols.Binary Initialized.");
+            _logger.LogInformation("OrientDB.Net.ConnectionProtocols.Binary Initialized.");
             return _serverConnection;
         }
 
         public void Dispose()
         {
             _serverConnection.Dispose();
-            _logger.Information("OrientDB.Net.ConnectionProtocols.Binary Disposed.");
+            _logger.LogInformation("OrientDB.Net.ConnectionProtocols.Binary Disposed.");
         }
     }
 }
