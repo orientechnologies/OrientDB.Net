@@ -1,4 +1,5 @@
-﻿using OrientDB.Net.ConnectionProtocols.Binary.Constants;
+﻿using Microsoft.Extensions.Logging;
+using OrientDB.Net.ConnectionProtocols.Binary.Constants;
 using OrientDB.Net.ConnectionProtocols.Binary.Core;
 using OrientDB.Net.ConnectionProtocols.Binary.Operations;
 using OrientDB.Net.Core.Abstractions;
@@ -18,11 +19,11 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Command
         private readonly string _sqlString;
         private readonly string _fetchPlan;
         private readonly ConnectionMetaData _metaData;
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
         private readonly string[] _parameters;
         private readonly IOrientDBRecordSerializer<byte[]> _serializer;
 
-        public SelectParameterizedCommandPayload(string sql, string[] parameters, IOrientDBRecordSerializer<byte[]> serializer, string fetchPlan, ConnectionMetaData metaData, IOrientDBLogger logger)
+        public SelectParameterizedCommandPayload(string sql, string[] parameters, IOrientDBRecordSerializer<byte[]> serializer, string fetchPlan, ConnectionMetaData metaData, ILogger logger)
         {
             _sqlString = sql;
             _fetchPlan = fetchPlan;

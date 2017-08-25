@@ -8,6 +8,7 @@ using OrientDB.Net.ConnectionProtocols.Binary.Operations.Results;
 using System.Collections;
 using OrientDB.Net.Core.Models;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Core
 {
@@ -18,9 +19,9 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
         private OrientDBBinaryConnectionStream _connectionStream;
         private OpenDatabaseResult _openResult; // might not be how I model this here in the end.
         private ICommandPayloadConstructorFactory _payloadFactory;
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
 
-        public OrientDBBinaryConnection(DatabaseConnectionOptions options, IOrientDBRecordSerializer<byte[]> serializer, IOrientDBLogger logger)
+        public OrientDBBinaryConnection(DatabaseConnectionOptions options, IOrientDBRecordSerializer<byte[]> serializer, ILogger logger)
         {
             _connectionOptions = options ?? throw new ArgumentNullException($"{nameof(options)} cannot be null.");
             _serializer = serializer ?? throw new ArgumentNullException($"{nameof(serializer)} cannot be null.");
@@ -30,7 +31,7 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
             Open();          
         }
 
-        public OrientDBBinaryConnection(string hostname, string username, string password, IOrientDBRecordSerializer<byte[]> serializer, IOrientDBLogger logger, int port = 2424, int poolsize = 10)
+        public OrientDBBinaryConnection(string hostname, string username, string password, IOrientDBRecordSerializer<byte[]> serializer, ILogger logger, int port = 2424, int poolsize = 10)
         {
             if (string.IsNullOrWhiteSpace(hostname))
                 throw new ArgumentException($"{nameof(hostname)} cannot be null or zero length.");
@@ -61,7 +62,7 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
                 _openResult = _connectionStream.Send(new DatabaseOpenOperation(_connectionOptions, _connectionStream.ConnectionMetaData));
                 stream.SessionId = _openResult.SessionId;
                 stream.Token = _openResult.Token;
-                _logger.Debug($"Opened connection with session id {stream.SessionId}");
+                _logger.LogDebug($"Opened connection with session id {stream.SessionId}");
             }
         }
 

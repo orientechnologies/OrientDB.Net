@@ -6,6 +6,7 @@ using OrientDB.Net.Core.Abstractions;
 using OrientDB.Net.Core.Models;
 using System;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Core
 {
@@ -14,9 +15,9 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
         private readonly OrientDBBinaryConnectionStream _stream;
         private readonly IOrientDBRecordSerializer<byte[]> _serializer;
         private readonly ICommandPayloadConstructorFactory _payloadFactory;
-        private readonly IOrientDBLogger _logger;
+        private readonly ILogger _logger;
 
-        internal OrientDBCommand(OrientDBBinaryConnectionStream stream, IOrientDBRecordSerializer<byte[]> serializer, ICommandPayloadConstructorFactory payloadFactory, IOrientDBLogger logger)
+        internal OrientDBCommand(OrientDBBinaryConnectionStream stream, IOrientDBRecordSerializer<byte[]> serializer, ICommandPayloadConstructorFactory payloadFactory, ILogger logger)
         {
             _stream = stream ?? throw new ArgumentNullException($"{nameof(stream)} cannot be null.");
             _serializer = serializer ?? throw new ArgumentNullException($"{nameof(serializer)} cannot be null");

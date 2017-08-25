@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using Microsoft.Extensions.Logging;
+using Moq;
 using NUnit.Framework;
 using OrientDB.Net.ConnectionProtocols.Binary.Core;
 using OrientDB.Net.Core.Abstractions;
@@ -37,7 +38,7 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Tests.CoreTests
 
             };
             Mock<IOrientDBRecordSerializer<byte[]>> mockSerializer = new Mock<IOrientDBRecordSerializer<byte[]>>();
-            Mock<IOrientDBLogger> mockLogger = new Mock<IOrientDBLogger>();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             var conn = new OrientDBBinaryServerConnection(options, mockSerializer.Object, mockLogger.Object);
 
@@ -52,7 +53,7 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Tests.CoreTests
 
             };
             Mock<IOrientDBRecordSerializer<byte[]>> mockSerializer = new Mock<IOrientDBRecordSerializer<byte[]>>();
-            Mock<IOrientDBLogger> mockLogger = new Mock<IOrientDBLogger>();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             var conn = new OrientDBBinaryServerConnection(options, mockSerializer.Object, mockLogger.Object);
 
@@ -67,7 +68,7 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Tests.CoreTests
 
             };
             Mock<IOrientDBRecordSerializer<byte[]>> mockSerializer = new Mock<IOrientDBRecordSerializer<byte[]>>();
-            Mock<IOrientDBLogger> mockLogger = new Mock<IOrientDBLogger>();
+            Mock<ILogger> mockLogger = new Mock<ILogger>();
 
             var conn = new OrientDBBinaryServerConnection(options, mockSerializer.Object, mockLogger.Object);
 
