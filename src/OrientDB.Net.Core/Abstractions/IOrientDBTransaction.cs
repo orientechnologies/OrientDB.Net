@@ -1,4 +1,5 @@
-﻿using OrientDB.Net.Core.Models;
+﻿using System.Threading.Tasks;
+using OrientDB.Net.Core.Models;
 
 namespace OrientDB.Net.Core.Abstractions
 {
@@ -10,5 +11,6 @@ namespace OrientDB.Net.Core.Abstractions
         void AddEdge(Edge edge, Vertex from, Vertex to);
         void Commit();
         void Reset();
+        Task CommitAsync();
     }
 }
