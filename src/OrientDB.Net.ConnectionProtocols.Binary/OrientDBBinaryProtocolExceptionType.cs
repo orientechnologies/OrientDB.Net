@@ -1,4 +1,4 @@
-﻿namespace OrientDB.Net.ConnectionProtocols.Binary.Exceptions
+﻿namespace OrientDB.Net.ConnectionProtocols.Binary
 {
     public enum OrientDBBinaryProtocolExceptionType
     {

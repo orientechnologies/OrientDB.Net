@@ -3,6 +3,7 @@ using OrientDB.Net.ConnectionProtocols.Binary.Operations;
 using System;
 using OrientDB.Net.Core.Abstractions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using OrientDB.Net.Core.Models;
 using Microsoft.Extensions.Logging;
 
@@ -108,6 +109,78 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
         }
 
         public void SetConfigValue(string name, string value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IOrientDatabaseConnection> CreateDatabaseAsync(string database, DatabaseType databaseType, StorageType storageType)
+        {
+            if (string.IsNullOrWhiteSpace(database))
+                throw new ArgumentException($"{nameof(database)} cannot be null or zero length.");
+
+            _logger.LogDebug($"Creating database {database}. DatabaseType: {databaseType}. StorageType: {storageType}.");
+            return await _connectionStream.SendAsync(new DatabaseCreateOperation(database, databaseType, storageType, _connectionStream.ConnectionMetaData, _options, _serializer, _logger));
+        }
+
+        public async Task<IOrientDatabaseConnection> DatabaseConnectAsync(string database, DatabaseType storageType, int poolSize = 10)
+        {
+            if (string.IsNullOrWhiteSpace(database))
+                throw new ArgumentException($"{nameof(database)} cannot be null or zero length.");
+
+            _logger.LogDebug($"Connecting to database: {database}. DatabaseType: {storageType}. Pool Size: {poolSize}");
+            var connection = new OrientDBBinaryConnection(new DatabaseConnectionOptions
+            {
+                Database = database,
+                HostName = _options.HostName,
+                Password = _options.Password,
+                PoolSize = poolSize,
+                Port = _options.Port,
+                Type = storageType,
+                UserName = _options.UserName
+            }, _serializer, _logger);
+
+            await connection.OpenAsync();
+            return connection;
+        }
+
+        public async Task DeleteDatabaseAsync(string database, StorageType storageType)
+        {
+            if (string.IsNullOrWhiteSpace(database))
+                throw new ArgumentException($"{nameof(database)} cannot be null or zero length.");
+
+            _logger.LogDebug($"Deleting database {database}. StorageType: {storageType}.");
+            await _connectionStream.SendAsync(new DatabaseDropOperation(database, storageType, _connectionStream.ConnectionMetaData, _options));
+        }
+
+        public async Task<bool> DatabaseExistsAsync(string database, StorageType storageType)
+        {
+            if (string.IsNullOrWhiteSpace(database))
+                throw new ArgumentException($"{nameof(database)} cannot be null or zero length.");
+
+            return (await _connectionStream.SendAsync(new DatabaseExistsOperation(database, storageType, _connectionStream.ConnectionMetaData, _options))).Exists;
+        }
+
+        public async Task ShutdownAsync(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentException($"{nameof(username)} cannot be null.");
+            if (string.IsNullOrWhiteSpace(password))
+                throw new ArgumentException($"{nameof(password)} cannot be null.");
+
+            await _connectionStream.SendAsync(new ServerShutdownOperation(_connectionStream.ConnectionMetaData, username, password));
+        }
+
+        public Task<IEnumerable<string>> ListDatabasesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetConfigValueAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SetConfigValueAsync(string name, string value)
         {
             throw new NotImplementedException();
         }
