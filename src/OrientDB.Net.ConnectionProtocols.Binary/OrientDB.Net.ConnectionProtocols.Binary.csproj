@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyTitle>OrientDB.Net.ConnectionProtocols.Binary</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>OrientDB.Net.ConnectionProtocols.Binary</AssemblyName>
     <PackageId>OrientDB.Net.ConnectionProtocols.Binary</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
