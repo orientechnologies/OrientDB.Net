@@ -5,7 +5,7 @@
     <AssemblyTitle>OrientDB.Net.Serializers.RecordCSVSerializer</AssemblyTitle>
     <VersionPrefix>0.1.4</VersionPrefix>
     <Authors>Michael Davidson</Authors>
-    <TargetFrameworks>netstandard16</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <AssemblyName>OrientDB.Net.Serializers.RecordCSVSerializer</AssemblyName>
     <PackageId>OrientDB.Net.Serializers.RecordCSVSerializer</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CSharp" Version="4.4.0" />
-    <PackageReference Include="OrientDB.Net.Core" Version="0.1.17" />
   </ItemGroup>
 
   <ItemGroup>
