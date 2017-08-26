@@ -1,17 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.ConnectionProtocols.Binary", "src\OrientDB.Net.ConnectionProtocols.Binary\OrientDB.Net.ConnectionProtocols.Binary.csproj", "{E4233AA5-8819-485F-812F-864687E025A0}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.ConnectionProtocols.Binary.Tests", "src\OrientDB.Net.ConnectionProtocols.Binary.Tests\OrientDB.Net.ConnectionProtocols.Binary.Tests.csproj", "{27CDB7A2-8983-4C4E-9B0D-857CBE8D42AB}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.Core", "src\OrientDB.Net.Core\OrientDB.Net.Core.csproj", "{0BDB7BDD-A9AE-4299-9590-98399AD32466}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.Serializers.RecordCSVSerializer", "src\OrientDB.Net.Serializers.RecordCSVSerializer\OrientDB.Net.Serializers.RecordCSVSerializer.csproj", "{C3670EFF-26DB-41B6-A7BD-A3D53CB3AF42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.ConnectionProtocols.Binary", "src\OrientDB.Net.ConnectionProtocols.Binary\OrientDB.Net.ConnectionProtocols.Binary.csproj", "{892A0EE7-4AA3-42EC-859D-1BADFF7F4FE8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.SqlCommandBuilder", "src\OrientDB.Net.SqlCommandBuilder\OrientDB.Net.SqlCommandBuilder.csproj", "{EFEDCA4B-1678-4CF8-A03D-4E56B617D3F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.ConnectionProtocols.Binary.Tests", "src\OrientDB.Net.ConnectionProtocols.Binary.Tests\OrientDB.Net.ConnectionProtocols.Binary.Tests.csproj", "{095D8209-E406-4CED-A6CB-3E6A0A5914C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.Serializers.RecordCSVSerializer", "src\OrientDB.Net.Serializers.RecordCSVSerializer\OrientDB.Net.Serializers.RecordCSVSerializer.csproj", "{96625E7E-42EE-497E-91C0-FFD4FA852451}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.SqlCommandBuilder", "src\OrientDB.Net.SqlCommandBuilder\OrientDB.Net.SqlCommandBuilder.csproj", "{23AF8522-DE41-44B4-B975-B36DEA9D3266}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,28 +19,31 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E4233AA5-8819-485F-812F-864687E025A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E4233AA5-8819-485F-812F-864687E025A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E4233AA5-8819-485F-812F-864687E025A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E4233AA5-8819-485F-812F-864687E025A0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{27CDB7A2-8983-4C4E-9B0D-857CBE8D42AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{27CDB7A2-8983-4C4E-9B0D-857CBE8D42AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{27CDB7A2-8983-4C4E-9B0D-857CBE8D42AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{27CDB7A2-8983-4C4E-9B0D-857CBE8D42AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0BDB7BDD-A9AE-4299-9590-98399AD32466}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0BDB7BDD-A9AE-4299-9590-98399AD32466}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BDB7BDD-A9AE-4299-9590-98399AD32466}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BDB7BDD-A9AE-4299-9590-98399AD32466}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C3670EFF-26DB-41B6-A7BD-A3D53CB3AF42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C3670EFF-26DB-41B6-A7BD-A3D53CB3AF42}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C3670EFF-26DB-41B6-A7BD-A3D53CB3AF42}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C3670EFF-26DB-41B6-A7BD-A3D53CB3AF42}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EFEDCA4B-1678-4CF8-A03D-4E56B617D3F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EFEDCA4B-1678-4CF8-A03D-4E56B617D3F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EFEDCA4B-1678-4CF8-A03D-4E56B617D3F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EFEDCA4B-1678-4CF8-A03D-4E56B617D3F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{892A0EE7-4AA3-42EC-859D-1BADFF7F4FE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{892A0EE7-4AA3-42EC-859D-1BADFF7F4FE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{892A0EE7-4AA3-42EC-859D-1BADFF7F4FE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{892A0EE7-4AA3-42EC-859D-1BADFF7F4FE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{095D8209-E406-4CED-A6CB-3E6A0A5914C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{095D8209-E406-4CED-A6CB-3E6A0A5914C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{095D8209-E406-4CED-A6CB-3E6A0A5914C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{095D8209-E406-4CED-A6CB-3E6A0A5914C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96625E7E-42EE-497E-91C0-FFD4FA852451}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96625E7E-42EE-497E-91C0-FFD4FA852451}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96625E7E-42EE-497E-91C0-FFD4FA852451}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96625E7E-42EE-497E-91C0-FFD4FA852451}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23AF8522-DE41-44B4-B975-B36DEA9D3266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23AF8522-DE41-44B4-B975-B36DEA9D3266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23AF8522-DE41-44B4-B975-B36DEA9D3266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23AF8522-DE41-44B4-B975-B36DEA9D3266}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {52DF0D80-AAFF-4DCC-8F81-1C6D364B6B45}
 	EndGlobalSection
 EndGlobal
