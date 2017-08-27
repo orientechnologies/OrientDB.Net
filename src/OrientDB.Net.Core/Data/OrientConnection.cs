@@ -11,7 +11,6 @@ namespace OrientDB.Net.Core.Data
     {
         private readonly ILogger _logger;
 
-        private readonly IOrientServerConnection _serverConnection;
         private readonly IOrientDatabaseConnection _databaseConnection;
 
         internal OrientConnection(
@@ -27,8 +26,8 @@ namespace OrientDB.Net.Core.Data
             if (string.IsNullOrWhiteSpace(database)) throw new ArgumentException($"{nameof(database)}");
             _logger = logger ?? throw new ArgumentNullException($"{nameof(logger)}");
 
-            _serverConnection = connectionProtocol.CreateServerConnection(serializer, logger);
-            _databaseConnection = _serverConnection.DatabaseConnect(database, databaseType, poolSize);
+            var serverConnection = connectionProtocol.CreateServerConnection(serializer, logger);
+            _databaseConnection = serverConnection.DatabaseConnect(database, databaseType, poolSize);
         }
 
         public async Task<IEnumerable<TResultType>> ExecuteQueryAsync<TResultType>(string sql) where TResultType : OrientDBEntity
@@ -54,6 +53,15 @@ namespace OrientDB.Net.Core.Data
                 throw new ArgumentException($"{nameof(sql)} cannot be zero length or null");
             _logger.LogDebug($"Executing SQL Command: {sql}");
             var data = _databaseConnection.ExecuteCommand(sql);
+            return data;
+        }
+
+        public async Task<IOrientDBCommandResult> ExecuteCommandAsync(string sql)
+        {
+            if (string.IsNullOrWhiteSpace(sql))
+                throw new ArgumentException($"{nameof(sql)} cannot be zero length or null");
+            _logger.LogDebug($"Executing SQL Command: {sql}");
+            var data = await _databaseConnection.ExecuteCommandAsync(sql);
             return data;
         }
 

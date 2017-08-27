@@ -11,6 +11,7 @@ namespace OrientDB.Net.Core.Abstractions
         IEnumerable<TResultType> ExecuteQuery<TResultType>(string sql) where TResultType : OrientDBEntity;
         IEnumerable<TResultType> ExecutePreparedQuery<TResultType>(string sql, params string[] parameters) where TResultType : OrientDBEntity;
         IOrientDBCommandResult ExecuteCommand(string sql);
+        Task<IOrientDBCommandResult> ExecuteCommandAsync(string sql);
         IOrientDBTransaction CreateTransaction();
         Task<IOrientDBTransaction> CreateTransactionAsync();
     }

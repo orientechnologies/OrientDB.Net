@@ -77,6 +77,12 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
             return new OrientDBCommand(_connectionStream, _serializer, _payloadFactory, _logger).Execute(sql);
         }
 
+        public async Task<IOrientDBCommandResult> ExecuteCommandAsync(string sql)
+        {
+            return await new OrientDBCommand(_connectionStream, _serializer, _payloadFactory, _logger)
+                .ExecuteAsync(sql);
+        }
+
         private IOrientDBCommand CreateCommand()
         {
             return new OrientDBCommand(_connectionStream, _serializer, _payloadFactory, _logger);
