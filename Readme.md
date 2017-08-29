@@ -160,25 +160,6 @@ namespace OrientDB.Net.Core.Abstractions
 }
 ```
 
-### IOrientDBLogger
-
-The IOrientDBLogger interface is used to create Logging wrappers to hook into the logging framework with OrientDB.Net.Core factories and implementations. It is recommended that any Protocols or Serializers use the interface for maximum logging compatibility.
-
-```
-namespace OrientDB.Net.Core.Abstractions
-{
-    public interface IOrientDBLogger
-    {
-        void Debug(string message);
-        void Information(string message);
-        void Verbose(string message);
-        void Error(string message);
-        void Fatal(string message);
-        void Warning(string message);
-    }
-}
-```
-
 ### IOrientDBRecordSerializer
 
 The IOrientDBRecordSerializer<TDataType> interface is used to create Record Serializers for IOrientDBConnectionProtocols. It should be used to effectively serialize records for the chosen protocol and deserialize results in a way that the protocol implementation can reason about.
