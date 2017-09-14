@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientDB.Net.ConnectionProtocols.Binary", "src\OrientDB.Net.ConnectionProtocols.Binary\OrientDB.Net.ConnectionProtocols.Binary.csproj", "{E4233AA5-8819-485F-812F-864687E025A0}"
 EndProject
@@ -42,5 +42,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15F7C5F2-7B47-4496-8C92-44D38B4BE719}
 	EndGlobalSection
 EndGlobal
