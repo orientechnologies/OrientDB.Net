@@ -4,7 +4,7 @@
     <Description>OrientDB .NET SDK</Description>
     <AssemblyTitle>OrientDB.Net.Core</AssemblyTitle>
     <VersionPrefix>0.1.0</VersionPrefix>
-    <Authors>Orient Technologies</Authors>
+    <Authors>Orient ltd</Authors>
     <AssemblyName>OrientDB.Net.Core</AssemblyName>
     <PackageId>OrientDB.Net.Core</PackageId>
     <TargetFramework>netstandard2.0</TargetFramework>
