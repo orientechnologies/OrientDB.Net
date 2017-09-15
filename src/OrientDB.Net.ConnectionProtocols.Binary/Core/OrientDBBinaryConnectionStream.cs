@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Core
 {
@@ -156,9 +157,36 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
 
         private int maxAttempts = 5;
 
+        internal async Task<T> SendAsync<T>(IOrientDBOperation<T> operation)
+        {
+
+            Exception lastException = null;
+
+            var i = maxAttempts;
+            while (i-- > 0)
+            {
+                try
+                {
+                    var stream = GetNetworkStream();
+
+                    T result = await ProcessAsync(operation, stream);
+
+                    ReturnStream(stream);
+
+                    return result;
+                }
+                catch (IOException ex)
+                {
+                    lastException = lastException == null ? ex : new Exception("Retry patern exception", ex);
+                }
+            }
+
+            throw lastException ?? throw new Exception("Retry patern exception");
+        }
+
         internal T Send<T>(IOrientDBOperation<T> operation)
         {
-            Exception _lastException = null;
+            Exception lastException = null;
 
             var i = maxAttempts;
             while (i-- > 0)
@@ -175,14 +203,28 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
                 }
                 catch (IOException ex)
                 {
-                    if (_lastException == null)
-                        _lastException = ex;
-                    else
-                        _lastException = new Exception("Retry patern exception", ex);
+                    lastException = lastException == null ? ex : new Exception("Retry patern exception", ex);
                 }
             }
 
-            throw _lastException;
+            throw lastException ?? throw new Exception("Retry patern exception");
+        }
+
+        private async Task<T> ProcessAsync<T>(IOrientDBOperation<T> operation, OrientDBNetworkConnection stream)
+        {
+            try
+            {
+                var request = operation.CreateRequest(stream.SessionId, stream.Token);
+
+                var reader = await SendAsync(request, stream.GetStream());
+
+                return operation.Execute(reader);
+            }
+            catch
+            {
+                Destroy(stream);
+                throw;
+            }
         }
 
         private T Process<T>(IOrientDBOperation<T> operation, OrientDBNetworkConnection stream)
@@ -226,6 +268,17 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
             flowControl.Release();
         }
 
+        private async Task<BinaryReader> SendAsync(Request request, NetworkStream stream)
+        {
+            await SendAsync(CreateBytes(request), stream);
+            if (request.OperationMode == OperationMode.Asynchronous)
+            {
+                return null;
+            }
+
+            return GetResponseReader(stream);
+        }
+
         private BinaryReader Send(Request request, NetworkStream stream)
         {
             Send(CreateBytes(request), stream);
@@ -234,6 +287,14 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
                 return null;
 
             return GetResponseReader(stream);
+        }
+
+        private async Task SendAsync(byte[] buffer, NetworkStream stream)
+        {
+            if (stream != null && stream.CanWrite)
+            {
+                await stream.WriteAsync(buffer, 0, buffer.Length);
+            }
         }
 
         private void Send(byte[] buffer, NetworkStream stream)

@@ -6,6 +6,7 @@ using OrientDB.Net.Core.Abstractions;
 using OrientDB.Net.Core.Models;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Core
@@ -35,6 +36,21 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Core
             //var results = _stream.Send(new DatabaseCommandOperation<T>(_payloadFactory, _stream.ConnectionMetaData, _serializer, _logger, query)).Results;
             var results = _stream.Send(new DocumentResultDatabaseCommandOperation(_payloadFactory, _stream.ConnectionMetaData, _serializer, query));
             return new BasicCommandResult()
+            {
+                RecordsAffected = results.Results.Count(),
+                UpdatedRecords = results.Results
+            };
+        }
+
+        public async Task<IEnumerable<T>> ExecuteAsync<T>(string query) where T : OrientDBEntity
+        {
+            return (await _stream.SendAsync(new DatabaseCommandOperation<T>(_payloadFactory, _stream.ConnectionMetaData, _serializer, _logger, query))).Results;
+        }
+
+        public async Task<IOrientDBCommandResult> ExecuteAsync(string query)
+        {
+            var results = await _stream.SendAsync(new DocumentResultDatabaseCommandOperation(_payloadFactory, _stream.ConnectionMetaData, _serializer, query));
+            return new BasicCommandResult
             {
                 RecordsAffected = results.Results.Count(),
                 UpdatedRecords = results.Results
