@@ -11,6 +11,7 @@ using System.IO;
 using OrientDB.Net.Core.Abstractions;
 using OrientDB.Net.Core;
 using OrientDB.Net.Core.Models;
+using OrientDB.Net.Core.Attributes;
 
 namespace OrientDB.Net.Serializers.RecordCSVSerializer
 {
@@ -648,8 +649,12 @@ namespace OrientDB.Net.Serializers.RecordCSVSerializer
                         case "OClassId":
                             continue;
                         default:
-                            if ((!string.IsNullOrWhiteSpace(propertyInfo.Name)) && (propertyInfo.Name[0] != '@'))
-                            {
+                            bool isSerializable = (!string.IsNullOrWhiteSpace(propertyInfo.Name)) && (propertyInfo.Name[ 0 ] != '@');
+                            if (!isSerializable) {
+                                continue;
+                            }
+                            OrientDBProperty orientDBPropertyAttribute = propertyInfo.GetCustomAttribute<OrientDBProperty>(true);
+                            if (orientDBPropertyAttribute == null || orientDBPropertyAttribute.Serializable) {
                                 if (stringBuilder.Length > 0)
                                     stringBuilder.Append(",");
 
