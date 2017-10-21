@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using OrientDB.Net.Core.Attributes;
 
 namespace OrientDB.Net.Core.Models
 {
@@ -20,7 +21,14 @@ namespace OrientDB.Net.Core.Models
             foreach (var key in data.Keys)
             {
                 var property = type.GetProperty(key);
-                if (property == null || !property.CanWrite) continue;
+                if (property == null || !property.CanWrite) {
+                    continue;
+                }
+
+                OrientDBProperty orientDBPropertyAttribute = property.GetCustomAttribute<OrientDBProperty>(true);
+                if (!orientDBPropertyAttribute.Deserializable) {
+                    continue;
+                }
 
                 var propertyType = property.PropertyType;
                 if (data[key] == null)
