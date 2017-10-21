@@ -3,7 +3,6 @@ using OrientDB.Net.ConnectionProtocols.Binary.Core;
 using OrientDB.Net.Core.Models;
 using OrientDB.Net.Core.Abstractions;
 using OrientDB.Net.ConnectionProtocols.Binary.Constants;
-using System.Text;
 
 namespace OrientDB.Net.ConnectionProtocols.Binary.Operations
 {
@@ -23,6 +22,10 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Operations
         public string EntityName
         {
             get { return _entity.GetType().Name; }
+        }
+
+        public string EntityClassName {
+            get { return _entity.OClassName; }
         }
 
         public ORID RecordORID
