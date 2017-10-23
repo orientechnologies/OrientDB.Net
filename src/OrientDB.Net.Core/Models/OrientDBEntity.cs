@@ -21,38 +21,37 @@ namespace OrientDB.Net.Core.Models
             foreach (var key in data.Keys)
             {
                 var property = type.GetProperty(key);
-                if (property == null || !property.CanWrite) {
-                    continue;
-                }
-
-                OrientDBProperty orientDBPropertyAttribute = property.GetCustomAttribute<OrientDBProperty>(true);
-                if (!orientDBPropertyAttribute.Deserializable) {
-                    continue;
-                }
-
-                var propertyType = property.PropertyType;
-                if (data[key] == null)
-                {
-                    property.SetValue(this, null);
-                }
-                else if (data[key].GetType().GetInterfaces().Any(n => n == typeof(IConvertible)))
-                {
-                    object val = Convert.ChangeType(data[key], propertyType);
-                    property.SetValue(this, val);
-                }
-                else
-                {
-                    var objectType = property.PropertyType;
-
-                    if (objectType.Name == typeof(HashSet<>).Name || objectType.Name == typeof(List<>).Name)
-                    {
-                        ExtractList(data, objectType, key, property);
+                if (property != null) {
+                    if (!property.CanWrite) {
                         continue;
                     }
 
-                    if (objectType.Name == typeof(Dictionary<,>).Name)
-                    {
-                        ExtractDictionary(data, objectType, key, property);
+                    OrientDBProperty orientDBPropertyAttribute = property.GetCustomAttribute<OrientDBProperty>(true);
+                    if (!orientDBPropertyAttribute.Deserializable) {
+                        continue;
+                    }
+
+                    var propertyType = property.PropertyType;
+                    if (data[ key ] == null) {
+                        property.SetValue(this, null);
+                    } else if (data[ key ].GetType().GetInterfaces().Any(n => n == typeof(IConvertible))) {
+                        object val = Convert.ChangeType(data[ key ], propertyType);
+                        property.SetValue(this, val);
+                    } else {
+                        var objectType = property.PropertyType;
+
+                        if (objectType.Name == typeof(HashSet<>).Name || objectType.Name == typeof(List<>).Name) {
+                            ExtractList(data, objectType, key, property);
+                            continue;
+                        }
+
+                        if (objectType.Name == typeof(Dictionary<,>).Name) {
+                            ExtractDictionary(data, objectType, key, property);
+                        }
+                    }
+                } else {
+                    if (this is IDictionary<string, object>) {
+                        ((IDictionary<string, object>)this)[ key ] = data[ key ];
                     }
                 }
             }

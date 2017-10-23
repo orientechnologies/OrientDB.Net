@@ -632,40 +632,51 @@ namespace OrientDB.Net.Serializers.RecordCSVSerializer
         {
             StringBuilder stringBuilder = new StringBuilder();
 
+            //If the entity implements IDictionary<string, object> we also serialize its entries
+            if (input is IDictionary<string, object>) {
+                IDictionary<string, object> dictionary = (IDictionary<string, object>)input;
+                foreach (string key in dictionary.Keys) {
+                    AppendField(stringBuilder, key, dictionary[key], dictionary[key].GetType());
+                }
+            }
+
             PropertyInfo[] properties = input.GetType().GetProperties();
             
             if(properties.Any())
             {
                 foreach(PropertyInfo propertyInfo in properties)
                 {
-                    switch(propertyInfo.Name)
-                    {
-                        case "OClassName":
-                            continue;
-                        case "ORID":
-                            continue;
-                        case "OVersion":
-                            continue;
-                        case "OClassId":
-                            continue;
-                        default:
-                            bool isSerializable = (!string.IsNullOrWhiteSpace(propertyInfo.Name)) && (propertyInfo.Name[ 0 ] != '@');
-                            if (!isSerializable) {
-                                continue;
-                            }
-                            OrientDBProperty orientDBPropertyAttribute = propertyInfo.GetCustomAttribute<OrientDBProperty>(true);
-                            if (orientDBPropertyAttribute == null || orientDBPropertyAttribute.Serializable) {
-                                if (stringBuilder.Length > 0)
-                                    stringBuilder.Append(",");
-
-                                stringBuilder.AppendFormat("{0}:{1}", propertyInfo.Name, SerializeValue(propertyInfo.GetValue(input), propertyInfo.PropertyType));
-                            }
-                            break;
-                    }                    
+                    OrientDBProperty orientDBPropertyAttribute = propertyInfo.GetCustomAttribute<OrientDBProperty>(true);
+                    if (!orientDBPropertyAttribute.Serializable) {
+                        continue;
+                    }
+                    AppendField(stringBuilder, propertyInfo.Name, propertyInfo.GetValue(input), propertyInfo.PropertyType);
                 }
             }
 
             return stringBuilder.ToString();
+        }
+
+        //Appends "name:value" to the builder if the name is not one of OrientDB's special properties, is not emtpy and doesn't start with "@".
+        private void AppendField(StringBuilder stringBuilder, string name, object value, Type type) {
+            switch(name) {
+                case "OClassName":
+                    return;
+                case "ORID":
+                    return;
+                case "OVersion":
+                    return;
+                case "OClassId":
+                    return;
+                default:
+                    if ((!string.IsNullOrWhiteSpace(name)) && (name[ 0 ] != '@')) {
+                        if (stringBuilder.Length > 0)
+                            stringBuilder.Append(",");
+
+                        stringBuilder.AppendFormat("{0}:{1}", name, SerializeValue(value, type));
+                    }
+                    break;
+            }
         }
 
         private string SerializeValue(object value, Type valueType)
