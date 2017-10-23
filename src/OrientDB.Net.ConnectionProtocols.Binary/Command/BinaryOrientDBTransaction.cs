@@ -41,7 +41,8 @@ namespace OrientDB.Net.ConnectionProtocols.Binary.Command
             if(!hasOrid)
             {
                 record.RecordORID = ORID.NewORID();
-                record.RecordORID.ClusterId = _clusterIdResolver(record.EntityName);                    
+                string className = string.IsNullOrEmpty(record.EntityClassName) ? record.EntityName : record.EntityClassName;
+                record.RecordORID.ClusterId = _clusterIdResolver(className);
             }
 
             if (_records.ContainsKey(record.RecordORID))
